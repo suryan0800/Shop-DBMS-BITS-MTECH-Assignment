@@ -8,13 +8,9 @@ import jwtHandler from './configs/OncePerRequestFilter';
 import loginRouter from './api/Login';
 import testRouter from './api/Test';
 
-
 const PORT = process.env.PORT || 3001;
 
 const app = express();
-
-// // Have Node serve the files for our built React app
-app.use(express.static(path.resolve(__dirname, '../myapp/build')));
 
 app.use(express.json())
 
@@ -28,11 +24,14 @@ app.use('/user', loginRouter)
 
 app.use('/api/test', jwtHandler, testRouter)
 
-// // All other GET requests not handled before will return our React app
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../myapp/build', 'index.html'));
-});
+// Have Node serve the files for our built React app
+app.use(express.static(path.resolve(__dirname, '../ui/build')));
 
+// All other GET requests not handled before will return our React app
+app.get('/*', (req, res) => {
+  console.log('hello world')
+  res.sendFile(path.resolve(__dirname, '../ui/build', 'index.html'));
+});
 
 // Listen to the respective port 
 app.listen(PORT, () => {
