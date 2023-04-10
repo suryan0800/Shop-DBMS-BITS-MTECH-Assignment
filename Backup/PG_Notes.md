@@ -29,11 +29,20 @@ Where:
 
 ### To restore backedup database
 ```
-pg_restore -d tryout -n shop -O -U postgres shop_dump.sql 
+pg_restore -d tryout -n shop -O -U postgres shop_dump.dump 
 ```
 Where: 
 - -d Database 
 - -n schema to restore 
 - -O no owner 
+- -U username 
+- shop_dump.dump - backed up database
+
+### To restore backedup database from sql file 
+```
+psql -U suryan0800 -d postgres < shop_dump.sql
+```
+Where: 
+- -d Database 
 - -U username 
 - shop_dump.sql - backed up database
