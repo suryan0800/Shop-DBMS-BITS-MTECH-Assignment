@@ -17,17 +17,14 @@ loginRouter.post("/Login", (req, res) => {
   pool
     .query(query)
     .then(response => {
-      // console.log("Selected Rows: ", response);
-      // console.log(response.rows)
       if (response.rows.length && response.rows[0].pass === pass) {
         const jwtSecretKey = process.env.JWT_SECRET_KEY;
         let data = {
           loginTime: Date(),
-          userId: response.rows[0].mail,
-          userName: response.rows[0].user_name
+          mailId: response.rows[0].mail_id
         }
         const token = sign(data, jwtSecretKey, { expiresIn: 60 * 40 });
-        res.json({ jwtToken: token, isSuccess: 'true', ...data });
+        res.json({ jwtToken: token, isSuccess: true, ...data });
       } else {
         res.status(403).send({ error: 'Not Authorized', message: 'Either invalid user or Token expired' })
       }

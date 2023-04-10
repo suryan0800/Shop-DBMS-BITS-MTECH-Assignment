@@ -18,7 +18,6 @@ testRouter.get("/getBirdsFromDB", (req, res) => {
     pool
         .query(query)
         .then(response => {
-            // console.log("Selected Rows: ", response);
             res.json(response.rows)
         })
         .catch(err => {
