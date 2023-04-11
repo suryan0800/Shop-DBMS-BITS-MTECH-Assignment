@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Nav, Navbar, Container } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { userState } from '../../services/NavService'
 import { LoginUser, isAuthenticated } from '../../beans/LoginUser'
 
@@ -12,7 +12,7 @@ const Navigation: FC<MyProps> = (props) => {
   const hasAccess = isAuthenticated(props.loginUser)
 
   const onLogout = () => {
-    sessionStorage.clear() 
+    sessionStorage.clear()
     userState.next(null)
     navigate("/Login")
   }
@@ -24,10 +24,10 @@ const Navigation: FC<MyProps> = (props) => {
           <Navbar.Brand href="/myComponent1">OSM Shopping</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Nav className="me-auto">
-            {hasAccess && <Nav.Link href="/Home">Home</Nav.Link>}
-            {hasAccess && <Nav.Link href="/myComponent1">Click Me!!</Nav.Link>}
-            {hasAccess && <Nav.Link href="/myComponent2">Timer</Nav.Link>}
-            {hasAccess && <Nav.Link href="/restCallTryOut">Call Server</Nav.Link>}
+            {hasAccess && <Nav.Link as={Link} to="/Home">Home</Nav.Link>}
+            {hasAccess && <Nav.Link as={Link} to="/myComponent1">Click Me!!</Nav.Link>}
+            {hasAccess && <Nav.Link as={Link} to="/myComponent2">Timer</Nav.Link>}
+            {hasAccess && <Nav.Link as={Link} to="/restCallTryOut">Call Server</Nav.Link>}
             {hasAccess && <Nav.Link onClick={onLogout}>Logout</Nav.Link>}
           </Nav>
         </Container>

@@ -17,14 +17,16 @@ import LoginLayout from './components/LoginLayout/LoginLayout';
 import ProtectedLayout from './components/ProtectedLayout/ProtectedLayout';
 
 export default function App() {
-  let loginState: LoginUser
-  const user = sessionStorage.getItem("userdata")
-  if (user) {
-    loginState = JSON.parse(user)
-  } else {
-    loginState = null
-  }
-  const [loginUser, setLoginUser] = useState<LoginUser>(loginState)
+ 
+  const [loginUser, setLoginUser] = useState<LoginUser>(() => {
+    let loginState: LoginUser
+    const user = sessionStorage.getItem("userdata")
+    if (user) {
+      return JSON.parse(user)
+    } else {
+      return null
+    }
+  })
 
   useEffect(() => {
     // subscribe to Nav Service UserState Subject messages
