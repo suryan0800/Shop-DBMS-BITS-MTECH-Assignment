@@ -15,12 +15,12 @@ import { userState } from './services/NavService';
 import { LoginUser } from './beans/LoginUser';
 import LoginLayout from './components/LoginLayout/LoginLayout';
 import ProtectedLayout from './components/ProtectedLayout/ProtectedLayout';
+import { USER_DATA } from './constants/constants';
 
 export default function App() {
  
   const [loginUser, setLoginUser] = useState<LoginUser>(() => {
-    let loginState: LoginUser
-    const user = sessionStorage.getItem("userdata")
+    const user = sessionStorage.getItem(USER_DATA)
     if (user) {
       return JSON.parse(user)
     } else {
@@ -40,7 +40,6 @@ export default function App() {
       userStateSub && userStateSub.unsubscribe();
     }
   }, [])
-  console.log('App render')
   return (
     <div>
       <BrowserRouter>
@@ -64,6 +63,17 @@ export default function App() {
           </Route>
           <Route element={<ProtectedLayout loginUser={loginUser} />}>
             <Route path="/restCallTryOut" element={<RestCallTryOut />} />
+          </Route>
+
+          {/* Shop related links */}
+          <Route element={<ProtectedLayout loginUser={loginUser} whoCanAccess={['CUST_ITEMS_ORDER_VIEW']} />}>
+            <Route path="/shop/product_view" element={<MyComponent2 name="Customer Product View Page" />} />
+          </Route>
+          <Route element={<ProtectedLayout loginUser={loginUser} whoCanAccess={['SELL_PRODUCT_UPDATE_VIEW']} />}>
+            <Route path="/shop/seller/product_create_edit" element={<MyComponent2 name="Seller Product Create/Edit Page" />} />
+          </Route>
+          <Route element={<ProtectedLayout loginUser={loginUser} whoCanAccess={['DELIVER_STATUS_UPDATE_VIEW']} />}>
+            <Route path="/shop/logistics_worker/order_delivery_status" element={<MyComponent2 name="Logistics Worker Order Delivery Status Page" />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -46,7 +46,7 @@ class MyComponent2 extends Component<MyProps, MyState> {
     
     render() {
         return (
-            <div>
+            <div className='app-container'>
                 <h1>The Current Time is: {this.state.currentDate.toString()} </h1>
                 <h3 style={{color: "blue"}} >Hello world {this.props.name}</h3>
                 <ul>{this.ulRender}</ul>

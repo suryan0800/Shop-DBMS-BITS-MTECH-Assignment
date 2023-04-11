@@ -1,3 +1,4 @@
+import securedFilter from 'configs/SecuredFilter';
 import express from 'express';
 import { Pool } from 'pg';
 
@@ -8,6 +9,13 @@ const pool = new Pool();
 testRouter.get("/hello", (req, res) => {
     res.json({ message: "Hello from server!" });
 });
+
+// Handle GET requests to /api route
+testRouter.get("/secured/hello",
+    securedFilter(['SELL_PRODUCT_UPDATE_VIEW']),
+    (req, res) => {
+        res.json({ message: "Hello from server!" });
+    });
 
 testRouter.get("/getBirdsFromDB", (req, res) => {
 

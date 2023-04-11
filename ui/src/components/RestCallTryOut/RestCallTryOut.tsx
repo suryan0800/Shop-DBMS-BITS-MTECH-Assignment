@@ -1,7 +1,7 @@
 // client/src/App.js
 
 import React from "react";
-import http from "../../services/JwtInterceptor";
+import http from "../../services/CustomAxiosInstance";
 
 function RestCallTryOut() {
 
@@ -15,7 +15,7 @@ function RestCallTryOut() {
 
   return (
     <div >
-      <header className="App-header">
+      <header className='container p-3 my-3 border'>
         <p>{!data ? "Loading..." : data}</p>
       </header>
     </div>

@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 import PropTypes from 'prop-types';
-import styles from './MyComponent1.module.css';
 
 type MyProps = { name: string };
 
 const MyComponent1: FC<MyProps> = (props) => (
-  <div className={styles.MyComponent1}>
+  <div className='container p-3 my-3 bg-primary text-white'>
     MyComponent1 Component {props.name}
     <br/><br/>
     <button onClick={log.bind(this,'hello world22')} >Click Me</button>
