@@ -5,8 +5,8 @@ import {
   Routes,
   Route
 } from 'react-router-dom'
-import MyComponent1 from './components/MyComponent1/MyComponent1';
-import MyComponent2 from './components/MyComponent2/MyComponent2';
+import ClickMeTryout from './components/ClickMeTryout/ClickMeTryout';
+import ClockTimerTryout from './components/ClockTimerTryout/ClockTimerTryout';
 import RestCallTryOut from './components/RestCallTryOut/RestCallTryOut';
 import Navigation from './components/Nav/Nav';
 import Login from './components/Login/Login';
@@ -56,10 +56,10 @@ export default function App() {
             <Route path="/Home" element={<Home />} />
           </Route>
           <Route element={<ProtectedLayout loginUser={loginUser} />}>
-            <Route path="/myComponent1" element={<MyComponent1 name="World" />} />
+            <Route path="/ClickMe" element={<ClickMeTryout name="Click Me" />} />
           </Route>
           <Route element={<ProtectedLayout loginUser={loginUser} />}>
-            <Route path="/myComponent2" element={<MyComponent2 name="Why IBM" />} />
+            <Route path="/ClockTimer" element={<ClockTimerTryout name="Clock Timer" />} />
           </Route>
           <Route element={<ProtectedLayout loginUser={loginUser} />}>
             <Route path="/restCallTryOut" element={<RestCallTryOut />} />
@@ -67,13 +67,13 @@ export default function App() {
 
           {/* Shop related links */}
           <Route element={<ProtectedLayout loginUser={loginUser} whoCanAccess={['CUST_ITEMS_ORDER_VIEW']} />}>
-            <Route path="/shop/product_view" element={<MyComponent2 name="Customer Product View Page" />} />
+            <Route path="/shop/product_view" element={<ClockTimerTryout name="Customer Product View Page" />} />
           </Route>
           <Route element={<ProtectedLayout loginUser={loginUser} whoCanAccess={['SELL_PRODUCT_UPDATE_VIEW']} />}>
-            <Route path="/shop/seller/product_create_edit" element={<MyComponent2 name="Seller Product Create/Edit Page" />} />
+            <Route path="/shop/seller/product_create_edit" element={<ClockTimerTryout name="Seller Product Create/Edit Page" />} />
           </Route>
           <Route element={<ProtectedLayout loginUser={loginUser} whoCanAccess={['DELIVER_STATUS_UPDATE_VIEW']} />}>
-            <Route path="/shop/logistics_worker/order_delivery_status" element={<MyComponent2 name="Logistics Worker Order Delivery Status Page" />} />
+            <Route path="/shop/logistics_worker/order_delivery_status" element={<ClockTimerTryout name="Logistics Worker Order Delivery Status Page" />} />
           </Route>
         </Routes>
       </BrowserRouter>

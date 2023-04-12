@@ -24,12 +24,12 @@ const Navigation: FC<MyProps> = ({ loginUser }) => {
     <div>
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container fluid>
-          <Navbar.Brand href="/myComponent1">OSM Shopping</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/Home">OSM Shopping</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Nav className="me-auto">
             {hasLoggedIn && <Nav.Link as={Link} to="/Home">Home</Nav.Link>}
-            {hasLoggedIn && <Nav.Link as={Link} to="/myComponent1">Click Me!!</Nav.Link>}
-            {hasLoggedIn && <Nav.Link as={Link} to="/myComponent2">Timer</Nav.Link>}
+            {hasLoggedIn && <Nav.Link as={Link} to="/ClickMe">Click Me!!</Nav.Link>}
+            {hasLoggedIn && <Nav.Link as={Link} to="/ClockTimer">Timer</Nav.Link>}
             {hasLoggedIn && <Nav.Link as={Link} to="/restCallTryOut">Call Server</Nav.Link>}
 
             {/* Shop related links */}

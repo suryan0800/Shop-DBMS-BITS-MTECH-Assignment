@@ -6,7 +6,7 @@ import Moment from 'moment';
 type MyProps = { name: string };
 type MyState = { currentDate: string };
 
-class MyComponent2 extends Component<MyProps, MyState> {
+class ClockTimerTryout extends Component<MyProps, MyState> {
     loadInterval: NodeJS.Timer
 
     constructor(props: MyProps){
@@ -55,5 +55,5 @@ class MyComponent2 extends Component<MyProps, MyState> {
     }
 }
 
-export default MyComponent2;
+export default ClockTimerTryout;
 
