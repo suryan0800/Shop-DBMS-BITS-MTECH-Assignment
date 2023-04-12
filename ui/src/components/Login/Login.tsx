@@ -1,4 +1,4 @@
-import React, { useState, FormEventHandler } from 'react'
+import React, { useState, FormEventHandler, useEffect, FC } from 'react'
 import http from "../../services/CustomAxiosInstance";
 import { userState } from '../../services/NavService'
 import { useNavigate } from 'react-router-dom'
@@ -7,20 +7,19 @@ import styles from './Login.module.css'
 import { LoginUser } from '../../beans/LoginUser'
 import { JWT_TOKEN, USER_DATA } from '../../constants/constants'
 
-const Login = () => {
+const Login: FC = () => {
     const navigate = useNavigate()
 
     const [notiShow, setNotiShow] = useState(false)
-    const [notiMessage, setNotiMessage] = useState()
+    const [notiMessage, setNotiMessage] = useState<string>(null)
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(0)
     const [user, setUser] = useState('')
     const [pass, setPass] = useState('')
 
     const handleLogin: FormEventHandler = (event) => {
         event.preventDefault()
-        // alert('A name was submitted: ' + user)
-        setIsLoading(true)
+        setIsLoading((prevVal) => (prevVal+1))
         http
             .post<LoginUser>('/user/Login', {
                 userName: user,
@@ -31,13 +30,13 @@ const Login = () => {
                 sessionStorage.setItem(USER_DATA, JSON.stringify(data))
                 sessionStorage.setItem(JWT_TOKEN, data.jwt_token)
                 console.log('hello 2')
-                setIsLoading(false)
+                setIsLoading((prevVal) => (prevVal - 1))
                 navigate("/Home")
             })
             .catch((err) => {
                 setNotiMessage(err.message)
                 setNotiShow(true)
-                setIsLoading(false)
+                setIsLoading((prevVal) => (prevVal - 1))
             });
     }
 
@@ -70,7 +69,7 @@ const Login = () => {
 
             </form>
 
-            {(isLoading) && (<div className={styles.spinnerDiv}>
+            {(isLoading !== 0) && (<div className={styles.spinnerDiv}>
                 <Spinner style={{ width: "3rem", height: "3rem" }} animation="border" variant="primary" />
             </div>)}
         </div>
