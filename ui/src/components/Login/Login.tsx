@@ -69,7 +69,7 @@ const Login: FC = () => {
 
             </form>
 
-            {(isLoading !== 0) && (<div className={styles.spinnerDiv}>
+            {(isLoading !== 0) && (<div className="spinnerDiv">
                 <Spinner style={{ width: "3rem", height: "3rem" }} animation="border" variant="primary" />
             </div>)}
         </div>

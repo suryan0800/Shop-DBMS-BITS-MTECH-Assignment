@@ -7,6 +7,7 @@ import express from 'express';
 import jwtHandler from './configs/OncePerRequestFilter';
 import loginRouter from './api/Login';
 import testRouter from './api/Test';
+import customerRouter from 'api/Customer';
 
 const PORT = process.env.PORT || 3001;
 
@@ -23,6 +24,8 @@ app.use((req, res, next) => {
 app.use('/user', loginRouter)
 
 app.use('/api/test', jwtHandler, testRouter)
+
+app.use('/api/customer', jwtHandler, customerRouter)
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../ui/build')));
