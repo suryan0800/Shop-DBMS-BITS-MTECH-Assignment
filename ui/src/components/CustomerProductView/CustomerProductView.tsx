@@ -71,7 +71,7 @@ export const CustomerProductView = () => {
                                     </ListGroup>
                                     <Card.Body>
                                         <Button variant="primary" onClick={() => {placeOrder(item)}}>
-                                            Order ({item.selling_product_id})
+                                            Order
                                         </Button>
                                     </Card.Body>
                                 </Card>
