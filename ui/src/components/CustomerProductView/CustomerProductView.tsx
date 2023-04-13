@@ -54,7 +54,7 @@ export const CustomerProductView = () => {
                                     <ListGroup className="list-group-flush">
                                         <ListGroup.Item>
                                             <strong>Selling Price: </strong>
-                                            {item.product_name}
+                                            {item.selling_price}
                                         </ListGroup.Item>
                                         <ListGroup.Item>
                                             <strong>Stock Available: </strong>
