@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { Alert, Button, Card, ListGroup, Spinner, Table } from 'react-bootstrap'
 import { SellingProductDTO } from '../../beans/SellingProductDTO'
 import http from '../../services/CustomAxiosInstance'
+import { useNavigate } from 'react-router-dom'
 
 export const CustomerProductView = () => {
+    const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(0)
     const [notiShow, setNotiShow] = useState(false)
     const [notiMessage, setNotiMessage] = useState<string>(null)
@@ -24,6 +26,10 @@ export const CustomerProductView = () => {
             });
     }, []);
 
+    const placeOrder = (dto: SellingProductDTO) => {
+        navigate('/shop/customer/order', {state: dto})
+    }
+
     return (
         <div className='container'>
             <Alert key='danger' variant='danger' show={notiShow} onClose={() => setNotiShow(false)} dismissible>
@@ -35,37 +41,37 @@ export const CustomerProductView = () => {
             <h3>Customer Products View</h3>
             <div className="flex-container">
                 {
-                    tableData?.map((val, index) => {
+                    tableData?.map((item, index) => {
                         return (
                             <div key={index}>
                                 <Card style={{ width: '25rem' }}>
                                     <Card.Body>
-                                        <Card.Title>{val.product_name}</Card.Title>
+                                        <Card.Title>{item.product_name}</Card.Title>
                                         <Card.Text>
-                                            {val.description}
+                                            {item.description}
                                         </Card.Text>
                                     </Card.Body>
                                     <ListGroup className="list-group-flush">
                                         <ListGroup.Item>
                                             <strong>Selling Price: </strong>
-                                            {val.product_name}
+                                            {item.product_name}
                                         </ListGroup.Item>
                                         <ListGroup.Item>
                                             <strong>Stock Available: </strong>
-                                            {val.no_of_available_stocks}
+                                            {item.no_of_available_stocks}
                                         </ListGroup.Item>
                                         <ListGroup.Item>
                                             <strong>Seller Name: </strong>
-                                            {val.seller_name}
+                                            {item.seller_name}
                                         </ListGroup.Item>
                                         <ListGroup.Item>
                                             <strong>Seller Location: </strong>
-                                            {val.location_nm}
+                                            {item.location_nm}
                                         </ListGroup.Item>
                                     </ListGroup>
                                     <Card.Body>
-                                        <Button variant="primary">
-                                            Order ({val.selling_product_id})
+                                        <Button variant="primary" onClick={() => {placeOrder(item)}}>
+                                            Order ({item.selling_product_id})
                                         </Button>
                                     </Card.Body>
                                 </Card>

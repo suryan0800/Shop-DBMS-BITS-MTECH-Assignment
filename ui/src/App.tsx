@@ -17,6 +17,7 @@ import LoginLayout from './components/LoginLayout/LoginLayout';
 import ProtectedLayout from './components/ProtectedLayout/ProtectedLayout';
 import { USER_DATA } from './constants/constants';
 import { CustomerProductView } from './components/CustomerProductView/CustomerProductView';
+import CustomerPlaceOrder from './components/CustomerPlaceOrder/CustomerPlaceOrder';
 
 export default function App() {
  
@@ -68,7 +69,10 @@ export default function App() {
 
           {/* Shop related links */}
           <Route element={<ProtectedLayout loginUser={loginUser} whoCanAccess={['CUST_ITEMS_ORDER_VIEW']} />}>
-            <Route path="/shop/product_view" element={<CustomerProductView />} />
+            <Route path="/shop/customer/product_view" element={<CustomerProductView />} />
+          </Route>
+          <Route element={<ProtectedLayout loginUser={loginUser} whoCanAccess={['CUST_ITEMS_ORDER_VIEW']} />}>
+            <Route path="/shop/customer/order" element={<CustomerPlaceOrder />} />
           </Route>
           <Route element={<ProtectedLayout loginUser={loginUser} whoCanAccess={['SELL_PRODUCT_UPDATE_VIEW']} />}>
             <Route path="/shop/seller/product_create_edit" element={<ClockTimerTryout name="Seller Product Create/Edit Page" />} />
