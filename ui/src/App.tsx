@@ -20,6 +20,7 @@ import { CustomerProductView } from './components/CustomerProductView/CustomerPr
 import CustomerPlaceOrder from './components/CustomerPlaceOrder/CustomerPlaceOrder';
 import { SellerProductView } from './components/SellerProductView/SellerProductView';
 import SellerNewProduct from './components/SellerNewProduct/SellerNewProduct';
+import { LogisticsOrderView } from './components/LogisticsOrderView/LogisticsOrderView';
 
 export default function App() {
  
@@ -83,7 +84,7 @@ export default function App() {
             <Route path="/shop/seller/new_product" element={<SellerNewProduct />} />
           </Route>
           <Route element={<ProtectedLayout loginUser={loginUser} whoCanAccess={['DELIVER_STATUS_UPDATE_VIEW']} />}>
-            <Route path="/shop/logistics_worker/order_delivery_status" element={<ClockTimerTryout name="Logistics Worker Order Delivery Status Page" />} />
+            <Route path="/shop/logistics_worker/order_delivery_status" element={<LogisticsOrderView />} />
           </Route>
         </Routes>
       </BrowserRouter>

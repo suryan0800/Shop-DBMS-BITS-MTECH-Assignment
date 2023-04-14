@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, Button, Card, ListGroup, Spinner, Table } from 'react-bootstrap'
+import { Alert, Button, Card, ListGroup, Spinner } from 'react-bootstrap'
 import { SellingProductDTO } from '../../beans/SellingProductDTO'
 import http from '../../services/CustomAxiosInstance'
 import { useNavigate } from 'react-router-dom'

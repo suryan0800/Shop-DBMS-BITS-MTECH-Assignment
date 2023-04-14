@@ -2,6 +2,7 @@ export type OrderDTO = {
     order_id: number, 
     selling_product_id: number, 
     customer_mail_id: string, 
+    customer_name: string,
     quantity: number, 
     price: number, 
     payment_method: string, 

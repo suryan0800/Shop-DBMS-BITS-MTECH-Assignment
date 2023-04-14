@@ -1,7 +1,7 @@
 import React, { FC, FormEventHandler, useState } from 'react';
 import { SellingProductDTO } from '../../beans/SellingProductDTO';
 import { Alert, Button, Col, Container, Form, Modal, Row, Spinner } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import http from '../../services/CustomAxiosInstance';
 import { ReturnDTO } from '../../beans/ReturnDTO';
 

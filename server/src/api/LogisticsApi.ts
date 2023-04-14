@@ -18,13 +18,17 @@ logisticsRouter.get("/OrderView",
     securedFilter(['DELIVER_STATUS_UPDATE_VIEW']),
     (req, res) => {
         const query = `
-        select order_id, customer_mail_id, quantity, delivery_address, 
-        delivery_pincode, logistics_worker_mail_id, delivery_status 
-        from shop.order_dtls od left outer join shop.customer c 
+        select order_id, od.customer_mail_id, c.customer_name, quantity, 
+        delivery_address, delivery_pincode, pl.location_nm as delivery_location, 
+        logistics_worker_mail_id, delivery_status 
+        from shop.order_dtls od 
+        left outer join shop.customer c 
         on od.customer_mail_id = c.customer_mail_id 
-        where delivery_pincode - 
-        ( select delivery_pincode 
-            from shop.logistics_worker lw where logistics_worker_mail_id = $1) < 10
+        left outer join shop.pincode_location pl 
+        on od.delivery_pincode = pl.pincode 
+        where (abs(delivery_pincode - 
+            ( select deliv_loc_pincode 
+                from shop.logistics_worker lw where logistics_worker_mail_id = $1))) < 10
       `;
 
         pool
@@ -38,7 +42,7 @@ logisticsRouter.get("/OrderView",
             })
     });
 
-logisticsRouter.post("/Update/DeliveryStatus",
+logisticsRouter.post("/UpdateDeliveryStatus",
     securedFilter(['DELIVER_STATUS_UPDATE_VIEW']),
     async (req, res) => {
         const dto: OrderDTO = req.body
@@ -52,10 +56,12 @@ logisticsRouter.post("/Update/DeliveryStatus",
             const updateOrderDelivStatus = `update shop.order_dtls 
             set logistics_worker_mail_id = $1, 
             delivery_status = 'DELIVERED' 
-            where order_id = $2 and logistics_worker_mail_id is null 
-            and delivery_pincode - 
-            ( select delivery_pincode 
-                from shop.logistics_worker lw where logistics_worker_mail_id = $1) < 10 `
+            where order_id = $2 
+            and logistics_worker_mail_id is null 
+            and ((abs(delivery_pincode - 
+                ( select deliv_loc_pincode 
+                    from shop.logistics_worker lw where logistics_worker_mail_id = $1))) < 10)
+            `;
             const res = await client.query(updateOrderDelivStatus, [user.mail_id, dto.order_id])
             if (res.rowCount != 1) {
                 throw new Error(`Either the Order Delivery Status is already updated 

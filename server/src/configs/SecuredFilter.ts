@@ -7,7 +7,7 @@ function securedFilter(whoCanAccess: string[]): RequestHandler {
             && req.user?.node_list?.some(val => whoCanAccess.includes(val))) {
                 return next()
         }
-        return res.status(403).send({ error: "User doesn't have the required Authority to perform the action" });
+        return res.status(401).send({ error: "User doesn't have the required Authority to perform the action" });
     }
     return reqHandler;
 }
