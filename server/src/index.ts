@@ -8,6 +8,8 @@ import jwtHandler from './configs/OncePerRequestFilter';
 import loginRouter from './api/Login';
 import testRouter from './api/Test';
 import customerRouter from 'api/CustomerApi';
+import logisticsRouter from 'api/LogisticsApi';
+import sellerRouter from 'api/SellerApi';
 
 const PORT = process.env.PORT || 3001;
 
@@ -26,6 +28,11 @@ app.use('/user', loginRouter)
 app.use('/api/test', jwtHandler, testRouter)
 
 app.use('/api/customer', jwtHandler, customerRouter)
+
+app.use('/api/seller', jwtHandler, sellerRouter)
+
+app.use('/api/logistics', jwtHandler, logisticsRouter)
+
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../ui/build')));

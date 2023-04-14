@@ -4,7 +4,7 @@ import { SellingProductDTO } from '../../beans/SellingProductDTO'
 import http from '../../services/CustomAxiosInstance'
 import { useNavigate } from 'react-router-dom'
 
-export const CustomerProductView = () => {
+export const SellerProductView = () => {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(0)
     const [notiShow, setNotiShow] = useState(false)
@@ -14,7 +14,7 @@ export const CustomerProductView = () => {
 
     React.useEffect(() => {
         setIsLoading((prevVal) => prevVal + 1)
-        http.get<SellingProductDTO[]>("/api/customer/ProductView")
+        http.get<SellingProductDTO[]>("/api/seller/ProductView")
             .then(({ data }) => {
                 setTableData(data)
                 setIsLoading((prevVal) => prevVal - 1)
@@ -26,8 +26,8 @@ export const CustomerProductView = () => {
             });
     }, []);
 
-    const placeOrder = (dto: SellingProductDTO) => {
-        navigate('/shop/customer/order', {state: dto})
+    const newProduct = () => {
+        navigate('/shop/seller/new_product')
     }
 
     return (
@@ -38,7 +38,12 @@ export const CustomerProductView = () => {
                 <hr />
                 <p> {notiMessage} </p>
             </Alert>
-            <h3>Customer Products View</h3>
+            <h3>Seller Products View</h3>
+            <div style={{textAlign: "right", paddingRight: '4%'}} >
+                    <Button variant="primary" onClick={() => { newProduct() }}>
+                        Publish New Product
+                    </Button>
+            </div>
             <div className="flex-container">
                 {
                     tableData?.map((item, index) => {
@@ -60,20 +65,7 @@ export const CustomerProductView = () => {
                                             <strong>Stock Available: </strong>
                                             {item.no_of_available_stocks}
                                         </ListGroup.Item>
-                                        <ListGroup.Item>
-                                            <strong>Seller Name: </strong>
-                                            {item.seller_name}
-                                        </ListGroup.Item>
-                                        <ListGroup.Item>
-                                            <strong>Seller Location: </strong>
-                                            {item.location_nm}
-                                        </ListGroup.Item>
                                     </ListGroup>
-                                    <Card.Body>
-                                        <Button variant="primary" onClick={() => {placeOrder(item)}}>
-                                            Order
-                                        </Button>
-                                    </Card.Body>
                                 </Card>
                             </div>
                         );

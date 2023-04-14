@@ -107,7 +107,7 @@ const CustomerPlaceOrder: FC = () => {
                         <Col>
                             <Form.Group className="mb-3" controlId="quantity">
                                 <Form.Label>Quantity</Form.Label>
-                                <Form.Control required type="number"
+                                <Form.Control required min="1" type="number"
                                     value={quantity}
                                     onChange={(event) => {
                                         event.target.value && setQuantity(parseInt(event.target.value))

@@ -18,6 +18,8 @@ import ProtectedLayout from './components/ProtectedLayout/ProtectedLayout';
 import { USER_DATA } from './constants/constants';
 import { CustomerProductView } from './components/CustomerProductView/CustomerProductView';
 import CustomerPlaceOrder from './components/CustomerPlaceOrder/CustomerPlaceOrder';
+import { SellerProductView } from './components/SellerProductView/SellerProductView';
+import SellerNewProduct from './components/SellerNewProduct/SellerNewProduct';
 
 export default function App() {
  
@@ -75,7 +77,10 @@ export default function App() {
             <Route path="/shop/customer/order" element={<CustomerPlaceOrder />} />
           </Route>
           <Route element={<ProtectedLayout loginUser={loginUser} whoCanAccess={['SELL_PRODUCT_UPDATE_VIEW']} />}>
-            <Route path="/shop/seller/product_create_edit" element={<ClockTimerTryout name="Seller Product Create/Edit Page" />} />
+            <Route path="/shop/seller/product_view" element={<SellerProductView />} />
+          </Route>
+          <Route element={<ProtectedLayout loginUser={loginUser} whoCanAccess={['SELL_PRODUCT_UPDATE_VIEW']} />}>
+            <Route path="/shop/seller/new_product" element={<SellerNewProduct />} />
           </Route>
           <Route element={<ProtectedLayout loginUser={loginUser} whoCanAccess={['DELIVER_STATUS_UPDATE_VIEW']} />}>
             <Route path="/shop/logistics_worker/order_delivery_status" element={<ClockTimerTryout name="Logistics Worker Order Delivery Status Page" />} />

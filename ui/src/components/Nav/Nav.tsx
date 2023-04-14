@@ -36,7 +36,7 @@ const Navigation: FC<MyProps> = ({ loginUser }) => {
             {hasLoggedIn && hasAccess(['CUST_ITEMS_ORDER_VIEW']) && <Nav.Link as={Link} 
             to="/shop/customer/product_view">Products View</Nav.Link>}
             {hasLoggedIn && hasAccess(['SELL_PRODUCT_UPDATE_VIEW']) && <Nav.Link as={Link} 
-            to="/shop/seller/product_create_edit">Edit Product</Nav.Link>}
+            to="/shop/seller/product_view">Selling Products</Nav.Link>}
             {hasLoggedIn && hasAccess(['DELIVER_STATUS_UPDATE_VIEW']) && <Nav.Link as={Link} 
             to="/shop/logistics_worker/order_delivery_status">Order Delivery Status</Nav.Link>}
             {hasLoggedIn && <Nav.Link onClick={onLogout}>Logout</Nav.Link>}

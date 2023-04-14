@@ -52,7 +52,6 @@ customerRouter.post("/Order",
             const pincodeInsert = `insert into shop.pincode_location (pincode, location_nm) 
             values($1, $2) on conflict (pincode) do nothing`
             const res = await client.query(pincodeInsert, [dto.delivery_pincode, dto.delivery_location])
-            console.log(res)
 
             const checkStock = `update shop.selling_product 
             set no_of_available_stocks = no_of_available_stocks - $1 
