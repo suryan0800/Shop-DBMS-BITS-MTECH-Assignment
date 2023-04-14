@@ -7,7 +7,7 @@ import express from 'express';
 import jwtHandler from './configs/OncePerRequestFilter';
 import loginRouter from './api/Login';
 import testRouter from './api/Test';
-import customerRouter from 'api/Customer';
+import customerRouter from 'api/CustomerApi';
 
 const PORT = process.env.PORT || 3001;
 
