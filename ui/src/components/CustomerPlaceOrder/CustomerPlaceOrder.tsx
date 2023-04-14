@@ -1,14 +1,21 @@
 import React, { FC, FormEventHandler, useState } from 'react';
 import { SellingProductDTO } from '../../beans/SellingProductDTO';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Alert, Button, Col, Container, Form, Modal, Row, Spinner } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { OrderDTO } from '../../beans/OrderDTO';
+import http from '../../services/CustomAxiosInstance';
+import { ReturnDTO } from '../../beans/ReturnDTO';
 
 const CustomerPlaceOrder: FC = () => {
     const location = useLocation();
     const dto: SellingProductDTO = location.state
 
     const navigate = useNavigate()
+
+    const [isLoading, setIsLoading] = useState(0);
+    const [showModal, setShowModal] = useState(false);
+    const [alertVariant, setAlertVariant] = useState('success');
+    const [alertMsg, setAlertMsg] = useState('');
 
     const [quantity, setQuantity] = useState<number>(1)
     const [payment, setPayment] = useState<string>('')
@@ -17,15 +24,16 @@ const CustomerPlaceOrder: FC = () => {
     const [delivPincode, setDelivPincode] = useState<number>(undefined)
     const [validated, setValidated] = useState(false);
 
-    const onSubmitForm: FormEventHandler = (event) => {
+    const onSubmitForm: FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
 
         setValidated(true);
 
-        const form: any = event.currentTarget;
+        const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.stopPropagation();
         } else {
+            setIsLoading(prevVal => prevVal + 1)
             const orderForm: OrderDTO = {
                 selling_product_id: dto.selling_product_id,
                 quantity,
@@ -36,11 +44,35 @@ const CustomerPlaceOrder: FC = () => {
                 delivery_pincode: delivPincode,
             }
             console.log(orderForm)
+            http.post<ReturnDTO>("/api/customer/Order", orderForm)
+                .then(({ data }) => {
+                    setIsLoading(prevVal => prevVal - 1)
+                    if (data?.status) {
+                        setAlertVariant('success')
+                        setAlertMsg(data.statusMsg)
+                        setShowModal(true)
+                    } else { 
+                        setAlertVariant('warning')
+                        setAlertMsg(`Aaargh, We are unable to process your order. Better Luck next time!!!. ${data.statusMsg}`)
+                        setShowModal(true)
+                    }
+                })
+                .catch((err) => {
+                    setIsLoading(prevVal => prevVal - 1)
+                    setAlertVariant('warning')
+                    setAlertMsg(`Aaargh, We are unable to process your order. Better Luck next time!!!. ${err.message}`)
+                    setShowModal(true)
+                })
         }
     }
 
     const back = () => {
         navigate(-1)
+    }
+
+    const closeModalHandler = () => {
+        setShowModal(false) 
+        back() 
     }
 
     return (
@@ -176,6 +208,21 @@ const CustomerPlaceOrder: FC = () => {
                     </Row>
                 </Container>
             </Form>
+
+            <Modal show={showModal} onHide={closeModalHandler}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Order Status</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Alert variant={alertVariant}>
+                        {alertMsg}
+                    </Alert>
+                </Modal.Body>
+            </Modal>
+
+            {(isLoading !== 0) && (<div className="spinnerDiv">
+                <Spinner style={{ width: "3rem", height: "3rem" }} animation="border" variant="primary" />
+            </div>)}
         </div>
     )
 }

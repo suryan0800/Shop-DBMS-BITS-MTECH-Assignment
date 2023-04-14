@@ -1,4 +1,5 @@
 import { OrderDTO } from 'beans/OrderDTO';
+import { ReturnDTO } from 'beans/ReturnDTO';
 import { SellingProductDTO } from 'beans/SellingProductDTO';
 import securedFilter from 'configs/SecuredFilter';
 import express from 'express';
@@ -42,6 +43,7 @@ customerRouter.post("/Order",
     async (req, res) => {
         const dto: OrderDTO = req.body
         const user: LoginUser = req.user
+        let retObj: ReturnDTO = null 
 
         const client = await pool.connect()
 
@@ -58,7 +60,7 @@ customerRouter.post("/Order",
             returning selling_product_id, selling_price `
             const updateStat = await client.query<SellingProductDTO>(checkStock, [dto.quantity, dto.selling_product_id])
             if (updateStat.rowCount == 0) {
-                throw new Error('Insufficient stock available to order')
+                throw new Error('Aaargh, Insufficient stock available to order')
             }
 
             const insertIntoOrder = `INSERT INTO shop.order_dtls 
@@ -69,14 +71,15 @@ customerRouter.post("/Order",
             dto.quantity, updateStat.rows[0].selling_price, dto.payment_method,
             dto.delivery_address, dto.delivery_pincode])
             await client.query('COMMIT')
-        } catch (e) {
+            retObj = { status: true, statusMsg: 'Woohoo, your order is placed successfully!!!' }
+        } catch (e: any) {
             await client.query('ROLLBACK')
-            throw e
+            retObj = {status: false, statusMsg: e.message}
         } finally {
             client.release()
         }
 
-        return { status: true, statusMsg: 'Successfully placed the order' }
+        res.json(retObj)
 
     })
 
