@@ -141,7 +141,13 @@ const CustomerPlaceOrder: FC = () => {
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Col>
-                        <Col></Col>
+                        
+                        <Col>
+                            <Form.Group className="mb-3" controlId="total_price">
+                                <Form.Label>Total Buying Price</Form.Label>
+                                <Form.Control type="number" value={dto.selling_price * quantity} disabled />
+                            </Form.Group>
+                        </Col>
                     </Row>
 
                     <Row>

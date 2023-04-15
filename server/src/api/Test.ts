@@ -1,4 +1,4 @@
-import securedFilter from 'configs/SecuredFilter';
+import securedFilter from '../configs/SecuredFilter';
 import express from 'express';
 import { Pool } from 'pg';
 

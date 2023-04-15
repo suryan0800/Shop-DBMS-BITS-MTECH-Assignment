@@ -138,17 +138,10 @@ where
 		logistics_worker_mail_id = $1))) < 10);
 
 
--- Auto-generated SQL script #202304150105
+-- To clear Order Delivery Status
 UPDATE shop.order_dtls
 	SET delivery_status='ORDERED',
 	logistics_worker_mail_id= null
-	WHERE order_id=4;
-UPDATE shop.order_dtls
-	SET delivery_status='ORDERED',
-	logistics_worker_mail_id= null 
-	WHERE order_id=1;
-UPDATE shop.order_dtls
-	SET delivery_status='ORDERED',
-	logistics_worker_mail_id= null 
-	WHERE order_id=5;
+	WHERE order_id in (1, 2);
+
 

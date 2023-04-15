@@ -1,6 +1,6 @@
-import { OrderDTO } from 'beans/OrderDTO';
-import { ReturnDTO } from 'beans/ReturnDTO';
-import securedFilter from 'configs/SecuredFilter';
+import { OrderDTO } from '../beans/OrderDTO';
+import { ReturnDTO } from '../beans/ReturnDTO';
+import securedFilter from '../configs/SecuredFilter';
 import express from 'express';
 import { Pool } from 'pg';
 import { LoginUser } from 'types/custom';
@@ -70,7 +70,8 @@ logisticsRouter.post("/UpdateDeliveryStatus",
             }
 
             await client.query('COMMIT')
-            retObj = { status: true, statusMsg: 'Woohoo, Your product went alive. Congratulations in advance for great sales!!!' }
+            retObj = { status: true, statusMsg: `Woohoo, Thank you for the prompt delivery. 
+            See you soon after more delivery like this!!!` }
         } catch (e: any) {
             await client.query('ROLLBACK')
             retObj = {status: false, statusMsg: `Aaargh, Server got into some issue. ${e.message}`}

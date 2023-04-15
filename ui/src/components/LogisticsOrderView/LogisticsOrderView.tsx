@@ -49,14 +49,14 @@ export const LogisticsOrderView = () => {
                     setShowModal(true)
                 } else {
                     setAlertVariant('warning')
-                    setAlertMsg(`Aaargh, We are unable to publish your product. Better Luck next time!!!. ${data.statusMsg}`)
+                    setAlertMsg(`Aaargh, We are unable to update delivery status of the order at the moment. Please try again later. ${data.statusMsg}`)
                     setShowModal(true)
                 }
             })
             .catch((err) => {
                 setIsLoading(prevVal => prevVal - 1)
                 setAlertVariant('warning')
-                setAlertMsg(`Aaargh, We are unable to publish your product. Better Luck next time!!!. ${err.message}`)
+                setAlertMsg(`Aaargh, We are unable to update delivery status of the order at the moment. Please try again later. ${err.message}`)
                 setShowModal(true)
             })
     }
@@ -121,7 +121,7 @@ export const LogisticsOrderView = () => {
 
             <Modal show={showModal} onHide={closeModalHandler}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Product Publish Status</Modal.Title>
+                    <Modal.Title>Delivery Status</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Alert variant={alertVariant}>

@@ -1,7 +1,7 @@
-import { OrderDTO } from 'beans/OrderDTO';
-import { ReturnDTO } from 'beans/ReturnDTO';
-import { SellingProductDTO } from 'beans/SellingProductDTO';
-import securedFilter from 'configs/SecuredFilter';
+import { OrderDTO } from '../beans/OrderDTO';
+import { ReturnDTO } from '../beans/ReturnDTO';
+import { SellingProductDTO } from '../beans/SellingProductDTO';
+import securedFilter from '../configs/SecuredFilter';
 import express from 'express';
 import { Pool } from 'pg';
 import { LoginUser } from 'types/custom';

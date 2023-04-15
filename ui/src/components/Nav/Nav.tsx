@@ -28,9 +28,9 @@ const Navigation: FC<MyProps> = ({ loginUser }) => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Nav className="me-auto">
             {hasLoggedIn && <Nav.Link as={Link} to="/Home">Home</Nav.Link>}
-            {hasLoggedIn && <Nav.Link as={Link} to="/ClickMe">Click Me!!</Nav.Link>}
-            {hasLoggedIn && <Nav.Link as={Link} to="/ClockTimer">Timer</Nav.Link>}
-            {hasLoggedIn && <Nav.Link as={Link} to="/restCallTryOut">Call Server</Nav.Link>}
+            {/* {hasLoggedIn && <Nav.Link as={Link} to="/ClickMe">Click Me!!</Nav.Link>} */}
+            {/* {hasLoggedIn && <Nav.Link as={Link} to="/ClockTimer">Timer</Nav.Link>} */}
+            {/* {hasLoggedIn && <Nav.Link as={Link} to="/restCallTryOut">Call Server</Nav.Link>} */}
 
             {/* Shop related links */}
             {hasLoggedIn && hasAccess(['CUST_ITEMS_ORDER_VIEW']) && <Nav.Link as={Link}
@@ -41,10 +41,10 @@ const Navigation: FC<MyProps> = ({ loginUser }) => {
               to="/shop/logistics_worker/order_delivery_status">Delivery Status</Nav.Link>}
           </Nav>
           <Navbar.Collapse className="justify-content-end">
-            {hasLoggedIn && <Navbar.Text>
-              Logged in as: <a href="#">{loginUser.mail_id}</a>
-            </Navbar.Text>}
             <Nav>
+              {hasLoggedIn && <Navbar.Text>
+                Logged in as: <span style={{color: "white", textDecoration: "underline"}}>{loginUser.mail_id}</span>
+              </Navbar.Text>}
               {hasLoggedIn && <Nav.Link onClick={onLogout}>Logout</Nav.Link>}
             </Nav>
           </Navbar.Collapse>

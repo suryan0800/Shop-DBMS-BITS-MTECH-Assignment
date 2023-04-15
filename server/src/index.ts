@@ -1,15 +1,17 @@
 // server/main.js
 import dotenv from 'dotenv';
-dotenv.config();
+
+const envFileName = `.env.${process.env.NODE_ENV || 'dev'}`
+dotenv.config({path: envFileName});
 
 import path from 'path';
 import express from 'express';
 import jwtHandler from './configs/OncePerRequestFilter';
 import loginRouter from './api/Login';
 import testRouter from './api/Test';
-import customerRouter from 'api/CustomerApi';
-import logisticsRouter from 'api/LogisticsApi';
-import sellerRouter from 'api/SellerApi';
+import customerRouter from './api/CustomerApi';
+import logisticsRouter from './api/LogisticsApi';
+import sellerRouter from './api/SellerApi';
 
 const PORT = process.env.PORT || 3001;
 
@@ -35,11 +37,11 @@ app.use('/api/logistics', jwtHandler, logisticsRouter)
 
 
 // Have Node serve the files for our built React app
-app.use(express.static(path.resolve(__dirname, '../ui/build')));
+app.use(express.static(path.resolve(__dirname, '../../ui/build')));
 
 // All other GET requests not handled before will return our React app
 app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../ui/build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../../ui/build', 'index.html'));
 });
 
 // Listen to the respective port 
